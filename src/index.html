@@ -10,16 +10,27 @@
 
 	<div class="container audio1" data-audiourl='http://www.stephaniequinn.com/Music/Allegro%20from%20Duet%20in%20C%20Major.mp3'>
 		<button id="playPause" class="isPaused">play</button>
-		<button id="muteUnmute" class="isMuted" href="#" title="">mute</button>
-		<input type="range" id="scrobbler" value="0" max=""/>
+		<button id="muteUnmute" class="isMuted">mute</button>
+		<input type="range" id="scrobbler" value="0" max="0"/>
 	</div>
+
+<hr>
+
+
+
+  <div class="container audio2" data-audiourl='http://destroyloop.com/sessions/intro1.mp3'>
+    <button id="playPause" class="isPaused">play</button>
+    <button id="muteUnmute" class="isMuted">mute</button>
+    <input type="range" id="scrobbler" value="0" max="0"/>
+  </div>
 
 
 <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/js.js"></script>
 <script>
 $(document).ready(function(){
-	$('.audio1').mheAudio();
+  $('.audio1').mheAudio();
+	$('.audio2').mheAudio();
 });
 </script>
 

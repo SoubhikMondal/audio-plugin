@@ -26,13 +26,14 @@
 		// ui handlers
 		this.playPause.on('click', function(e){
 			e.preventDefault();
+			console.log(Plugin.song.src)
 			if(Plugin.isPlaying === false){
 				$(this).removeClass('isPaused').addClass('isPlaying');
 				Plugin.song.play();
 				Plugin.isPlaying = true;
 			} else {
 				$(this).removeClass('isPlaying').addClass('isPaused');
-				Plugin.song.play(); 
+				Plugin.song.pause(); 
 				Plugin.isPlaying = false;
 			}
 		});
