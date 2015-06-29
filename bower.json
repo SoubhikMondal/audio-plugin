@@ -1,0 +1,19 @@
+{
+  "name": "audio_skin",
+  "version": "0.0.0",
+  "authors": [
+    "Keith DiMatteo <keith.dimatteo@mheducation.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "install": "~1.0.4",
+    "gulp": "~3.9.0"
+  }
+}
