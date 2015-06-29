@@ -1,9 +1,13 @@
 {
   "name": "audio_skin",
-  "version": "0.0.0",
   "authors": [
     "Keith DiMatteo <keith.dimatteo@mheducation.com>"
   ],
+  "private": "true",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master"
+  },
   "license": "MIT",
   "ignore": [
     "**/.*",

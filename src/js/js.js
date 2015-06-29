@@ -2,11 +2,9 @@
 
 	'use strict';	
 
-  $.fn.mheAudio = function(el){
+  $.fn.mheAudio = function(){
 
 		var Plugin = this;
-
-		//http://www.stephaniequinn.com/Music/Allegro%20from%20Duet%20in%20C%20Major.mp3'
 
 		this.el = $(this.selector);
 
@@ -14,7 +12,7 @@
 		this.muteUnmute = $(this.selector + ' .muteUnmute');
 		this.scrobbler = $(this.selector + ' .scrobbler');
 		this.volume = $(this.selector + ' .volume');
-
+		debugger;
 		this.isMuted = false;
 		this.isPlaying = false;
 

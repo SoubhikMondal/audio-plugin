@@ -4,6 +4,7 @@ var copy = require('gulp-copy');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
+var flatten = require('gulp-flatten');
 var nodemon = require('gulp-nodemon');
 
 
@@ -18,15 +19,12 @@ gulp.task('buildJS', function(){
     .pipe(gulp.dest('dist'));
 });
 
-
-/*
 gulp.task('buildCSS', function(){
-  return gulp.src('src/styles/*.css')
+  return gulp.src('src/styles/*.scss')
     .pipe(sass({outputStyle:'compressed'})
     .on('error', sass.logError))
     .pipe(gulp.dest('dist'));
 });
-*/
 
 gulp.task('serve', function () {
   nodemon({
@@ -38,19 +36,23 @@ gulp.task('serve', function () {
 
 gulp.task('copyHTML', function(){
   return gulp.src('src/index.html')
-    .pipe(copy('dist'));
+    .pipe(flatten())
+    //.pipe(copy('dist'));
+    .pipe(gulp.dest('dist'));
 });
 
 
 gulp.task('copyCSS', function(){
   return gulp.src('src/styles/*.css')
-    .pipe(copy('dist/app.css', {prefix:9}));
+    .pipe(flatten())
+    .pipe(gulp.dest('dist'))
+    //.pipe(copy('dist/app.css', {prefix: 'src'}));
 });
 
 // --------------------------------------------
 
 gulp.task('scss-watcher', function () {
-    return gulp.watch('src/styles/*.css', function () {
+    return gulp.watch('src/styles/*.scss', function () {
         gulp.start('buildCSS');
     });
 });
@@ -73,7 +75,7 @@ gulp.task('watch', ['html-watcher', 'scss-watcher', 'js-watcher']);
 // ----------------------------------------
 
 
-gulp.task('dev', [], function(){
+gulp.task('dev', ['build'], function(){
   gulp.start('serve');
   gulp.start('watch');
 });
