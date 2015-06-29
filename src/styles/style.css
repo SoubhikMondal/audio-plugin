@@ -1,38 +1,34 @@
 .isMuted {
 	background-color:gray;
 }
+
 .isUnmuted {
 	background-color: green;
 }
+
 .isPaused {
 	background-color: gray;
 }
+
 .isPlaying {
 	background-color: green;
 }
+
+
+
 
 input[type="range"] {
 	-webkit-appearance: none;
 
 	border: 0;
-	display: inline;
 	height: 2px;
 
 	border-radius: 20px;
-	background-color: blue;
-	box-shadow: inset 0px 4px 4px rgba(0,0,0,.6);
+	background-color: DeepSkyBlue;
 }
 
-/*
-
-input::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	width: 20px;
-	height: 20px;
-	border: 0;
-
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	background: #80e4df; /* Old browsers */
-	}
-*/
+input[type="range"].volume {
+	background-color: gray;
+	height:10px;
+	width:50px;
+}

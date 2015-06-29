@@ -10,9 +10,11 @@
 
 		this.el = $(this.selector);
 
-		this.playPause = $(this.selector + ' #playPause');
-		this.muteUnmute = $(this.selector + ' #muteUnmute');
-		this.scrobbler = $(this.selector + ' #scrobbler');
+		this.playPause = $(this.selector + ' .playPause');
+		this.muteUnmute = $(this.selector + ' .muteUnmute');
+		this.scrobbler = $(this.selector + ' .scrobbler');
+		this.volume = $(this.selector + ' .volume');
+
 		this.isMuted = false;
 		this.isPlaying = false;
 
@@ -21,19 +23,18 @@
 		this.song = new Audio(this.audioURL);
 		this.song.type = 'audio/mpeg';
 		this.song.src = this.audioURL;
-		$(this.scrobbler).attr('max', this.song.duration)
+		$(this.scrobbler).attr('max', this.song.duration);
 
 		// ui handlers
 		this.playPause.on('click', function(e){
 			e.preventDefault();
-			console.log(Plugin.song.src)
 			if(Plugin.isPlaying === false){
 				$(this).removeClass('isPaused').addClass('isPlaying');
 				Plugin.song.play();
 				Plugin.isPlaying = true;
 			} else {
 				$(this).removeClass('isPlaying').addClass('isPaused');
-				Plugin.song.pause(); 
+				Plugin.song.pause();
 				Plugin.isPlaying = false;
 			}
 		});
@@ -51,14 +52,18 @@
 			}
 		});
 
-		this.song.addEventListener('timeupdate',function (){
+		this.song.addEventListener('timeupdate', function(){
 			var curtime = parseInt(Plugin.song.currentTime, 10);
 			$(Plugin.scrobbler).val(curtime);
 		});
 
-		this.scrobbler.bind('change', function() {
+		this.scrobbler.bind('change', function(){
 			Plugin.song.currentTime = $(this).val();
 			Plugin.scrobbler.attr('max', Plugin.song.duration);
+		});
+
+		this.volume.bind('change', function(){
+			Plugin.song.volume = $(this).val() * .10;
 		});
 
 		return this;

@@ -8,20 +8,21 @@
 
 	<h1>HTML 5 Audio Player</h1>
 
-	<div class="container audio1" data-audiourl='http://www.stephaniequinn.com/Music/Allegro%20from%20Duet%20in%20C%20Major.mp3'>
-		<button id="playPause" class="isPaused">play</button>
-		<button id="muteUnmute" class="isMuted">mute</button>
-		<input type="range" id="scrobbler" value="0" max="0"/>
-	</div>
+	<div class="audio1" data-audiourl='http://www.stephaniequinn.com/Music/Allegro%20from%20Duet%20in%20C%20Major.mp3'>
+		<button class="playPause isPaused">play</button>
+		<input type="range" class="scrobbler" value="0" step="0" max="0"/>
+    <button class="muteUnmute isMuted">mute</button>
+	  <input type="range" class="volume" value="0" step="0" max="10"/>
+    
+  </div>
 
-<hr>
+  <hr>
 
-
-
-  <div class="container audio2" data-audiourl='http://destroyloop.com/sessions/intro1.mp3'>
-    <button id="playPause" class="isPaused">play</button>
-    <button id="muteUnmute" class="isMuted">mute</button>
-    <input type="range" id="scrobbler" value="0" max="0"/>
+  <div class="audio2" data-audiourl='http://destroyloop.com/sessions/intro1.mp3'>
+    <button class="playPause isPaused">play</button>
+    <input type="range" class="scrobbler" value="0" step="0" max="0"/>
+    <button class="muteUnmute isMuted">mute</button>
+    <input type="range" class="volume" value="0" step="0" max="10"/>
   </div>
 
 
