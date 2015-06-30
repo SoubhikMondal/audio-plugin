@@ -1,12 +1,12 @@
+![screen shot 2015-06-30 at 1 05 32 pm](https://cloud.githubusercontent.com/assets/2104257/8436799/f31a3dc2-1f28-11e5-909d-dc9746ab8425.png)
+
 Simple jQuery plugin to play audio in a skinned UI.
 
 Includes:
-
 * Play/Pause
 * Mute/Unmute
 * Timeline Scrubbinb
 * Volume Slider
-
 
 Implementation:
 
