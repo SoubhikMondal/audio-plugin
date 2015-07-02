@@ -14,10 +14,17 @@ gulp.task('clean', function(cb){
 
 gulp.task('buildJS', function(){
  return gulp.src('src/**.js')
-    .pipe(concat('jquery.audio-plugin.js'))
+    .pipe(concat('jquery.audio-plugin.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist'));
 });
+
+gulp.task('buildLongJS', function(){
+ return gulp.src('src/**.js')
+    .pipe(concat('jquery.audio-plugin.js'))
+    .pipe(gulp.dest('dist'));
+});
+
 
 gulp.task('buildCSS', function(){
   return gulp.src('src/**.scss')
@@ -78,5 +85,5 @@ gulp.task('dev', ['build-dev'], function(){
   gulp.start('watch');
 });
 
-gulp.task('build', ['clean', 'buildCSS', 'buildJS']);
+gulp.task('build', ['clean', 'buildCSS', 'buildJS', 'buildLongJS']);
 gulp.task('build-dev', ['clean', 'copyHTML', 'buildJS', 'copyCSS']);
