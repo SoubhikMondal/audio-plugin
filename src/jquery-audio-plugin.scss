@@ -1,0 +1,67 @@
+.audio__container { 
+
+  width: 320px;
+
+  background-color: #e5e5e5;
+  border-radius: 5px;
+  padding: 10px;
+
+  button {
+    outline: none;
+    background-color: #1086d9;
+    color: white;
+    height: 23px;
+    border: 0;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    border-radius: 5px;
+  }
+
+  .playPause {
+    width: 63px;
+  }
+
+  .playPause.isPaused::after {
+    content: 'PLAY ▶';
+  }
+
+  .playPause.isPlaying::after {
+    content: 'PAUSE ||';
+  }
+
+  .muteUnmute {
+    padding:0 9px;
+  }
+
+  .muteUnmute.isMuted::after {
+    content: '';
+    padding: 0;
+  }
+
+  .muteUnmute.isUnmuted:after {
+    content: '';
+    padding: 0;
+  }
+
+}
+
+
+input[type="range"] {
+  outline: none;
+  -webkit-appearance: none;
+  border: 0;
+  height: 6px;
+  border-radius: 4px;
+  background-color: DeepSkyBlue;
+  background: linear-gradient(to bottom, rgba(167,195,215,1) 0%,  rgba(227,239,247,1) 50%, rgba(188,224,238,1) 100%);
+
+}
+input[type="range"].volume {
+  background-color: gray;
+  background: none;
+  //background: linear-gradient(to bottom, rgba(138,138,138,1) 25%,rgba(192,198,198,1) 50%,rgba(138,138,138,1) 75%);
+  box-shadow: inset 0px 1px 0px rgba(0,0,0,0.3), 0px 1px 0px rgba(255,255,255,0.25);
+  border:1px solid black;
+  height: 4px;
+  width: 50px;
+}
