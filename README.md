@@ -1,4 +1,5 @@
-![screen shot 2015-06-30 at 1 05 32 pm](https://cloud.githubusercontent.com/assets/2104257/8436799/f31a3dc2-1f28-11e5-909d-dc9746ab8425.png)
+![screen shot 2015-07-02 at 12 03 57 pm](https://cloud.githubusercontent.com/assets/2104257/8481660/5a9ee472-20b2-11e5-9430-13a496f4444c.png)
+
 
 Simple jQuery plugin to play audio in a skinned UI.
 
