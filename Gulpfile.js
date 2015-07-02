@@ -64,7 +64,7 @@ gulp.task('scss-watcher', function () {
 
 gulp.task('js-watcher', function () {
     return gulp.watch('src/*.js', function () {
-        gulp.start('buildJS');
+        gulp.start(['buildJS', 'buildLongJS']);
     });
 });
 
@@ -80,10 +80,10 @@ gulp.task('watch', ['html-watcher', 'scss-watcher', 'js-watcher']);
 // ----------------------------------------
 
 
-gulp.task('dev', ['build-dev'], function(){
+gulp.task('dev', ['build', 'copyHTML'], function(){
   gulp.start('serve');
   gulp.start('watch');
 });
 
 gulp.task('build', ['clean', 'buildCSS', 'buildJS', 'buildLongJS']);
-gulp.task('build-dev', ['clean', 'copyHTML', 'buildJS', 'copyCSS']);
+gulp.task('build-dev', ['copyHTML', 'buildJS', 'buildLongJS', 'copyCSS']);

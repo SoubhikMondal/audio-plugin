@@ -16,8 +16,6 @@
     this.isPlaying    = false;
     this.previousVolume = 10;
 
-    $(this.scrobbler).attr('max', this.song.duration);
-
     this.playPause.addClass('isPaused');
     this.muteUnmute.addClass('isUnmuted');
     this.volume.val(this.previousVolume);
@@ -30,11 +28,27 @@
     this.muteUnmute.on('click', $.proxy(this.toggleVolume, this));
     this.volume.on('change', $.proxy(this.updateVolume, this));
     this.scrobbler.on('change', $.proxy(this.updateSongPosition, this));
+    this.scrobbler.on('mousedown', $.proxy(this.startDrag, this));
+    this.scrobbler.on('mouseup', $.proxy(this.stopDrag, this));
     this.song.addEventListener('timeupdate', $.proxy(this.updateScrobbler, this));
+  };
+  
+  MHEAudio.prototype.startDrag = function(){
+    $(this.scrobbler).attr('max', this.song.duration);
+    if(this.isPlaying === true){
+      this.song.pause();
+    }
+  };
+
+  MHEAudio.prototype.stopDrag = function(){
+    if(this.isPlaying === true){
+      this.song.play();
+    }
   };
 
   MHEAudio.prototype.updateSongPosition = function(){
     this.song.currentTime = $(this.scrobbler).val();
+    console.log($(this.scrobbler).val());
   };
   
   MHEAudio.prototype.updateScrobbler = function(){
@@ -57,14 +71,15 @@
   MHEAudio.prototype.toggleVolume = function(){
     if(this.isMuted){
       this.isMuted = false;
+      this.song.volume = this.previousVolume * 0.1;
       $(this.volume).val(this.previousVolume);
       $(this.muteUnmute).removeClass('isMuted').addClass('isUnmuted');
     } else {
       this.isMuted = true;
+      this.song.volume = 0;
       $(this.volume).val(0);
       $(this.muteUnmute).removeClass('isUnmuted').addClass('isMuted');
     }
-
   };
   
   MHEAudio.prototype.updateVolume = function(){
