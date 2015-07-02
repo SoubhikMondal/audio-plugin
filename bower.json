@@ -1,9 +1,9 @@
 {
-  "name": "audio_skin",
+  "name": "audio-plugin",
   "authors": [
     "Keith DiMatteo <keith.dimatteo@mheducation.com>"
   ],
-  "private": "true",
+  "main": ["dist/app.js"],
   "_resolution": {
     "type": "branch",
     "branch": "master"
