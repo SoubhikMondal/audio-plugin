@@ -1,7 +1,15 @@
+__Audio Playback__
+
+jQuery plugin to play audio in a skinned UI.
+
+Full Featured:
+
 ![screen shot 2015-07-02 at 12 03 57 pm](https://cloud.githubusercontent.com/assets/2104257/8481660/5a9ee472-20b2-11e5-9430-13a496f4444c.png)
 
+Minimum Features:
 
-Simple jQuery plugin to play audio in a skinned UI.
+![screen shot 2015-07-02 at 12 05 33 pm](https://cloud.githubusercontent.com/assets/2104257/8481702/96111642-20b2-11e5-9109-6b085e89cf57.png)
+
 
 Includes:
 * Play/Pause
