@@ -18,7 +18,8 @@
 
   .playPause {
     width: 63px;
-    
+    padding:0px;
+
     &.isPaused::after {
       content: 'PLAY ▶';
     }
