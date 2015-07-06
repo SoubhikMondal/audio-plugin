@@ -17,6 +17,8 @@
     <input type="range" class="volume" value="0" step="0" max="10"/>
   </div>
 
+  <button class="kill1">Kill</button>
+
   <hr>
 
   <div class="audio__container audio2" data-audiourl='http://destroyloop.com/sessions/intro1.mp3'>
@@ -36,16 +38,19 @@
 $(document).ready(function(){
   $('.audio1').mheAudio();
   $('.audio2').mheAudio();
+
+  $('.kill1').on('click', function(){
+    $('.audio1').mheAudio('tearDown');
+  });
 });
 </script>
 
 <script>
-  // var t = null;
-  // var newTime = null;
+  var t = null;
+  var newTime = null;
 
   var getScrobblerVal = function(){
     var t = $('.audio1 .scrobbler').val();
-    console.log(t);
     return t;
 
   };
