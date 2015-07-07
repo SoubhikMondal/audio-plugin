@@ -26,6 +26,15 @@
   </div>
 
   <hr>
+
+  <div class="audio__container audio3" data-audiotype="audio/mp3" data-audiourl='http://destroyloop.com/sessions/intro1.mp3'>
+    <button class="playPause"></button>
+    <input type="range" class="scrobbler" value="0" step="0" max="0"/>
+    <button class="muteUnmute"></button>
+    <input type="range" class="volume" value="0" step="0" max="10"/>
+  </div>
+
+  <hr>
   <hr>
 
   <div id="qunit"></div>
@@ -38,52 +47,95 @@
 $(document).ready(function(){
   $('.audio1').mheAudio();
   $('.audio2').mheAudio();
+  $('.audio3').mheAudio();
 
   $('.kill1').on('click', function(){
     $('.audio1').mheAudio('tearDown');
   });
 });
 </script>
-
 <script>
-  var t = null;
-  var newTime = null;
 
-  var getScrobblerVal = function(){
-    var t = $('.audio1 .scrobbler').val();
-    return t;
+var testClass = '.audio1';
+var testPlayPause = '.audio1 .playPause';
+var testMuteUnmute = '.audio1 .muteUnmute';
+var testScrobbler = '.audio1 .scrobbler';
+var testVolumeSlider = '.audio1 .volume';
 
-  };
+var createInstance = function(){
+  $(testClass).mheAudio();
+}
 
-  var hasScrobberMoved = function(){
-    newTime = getScrobblerVal();
-    clearTimeout(t);
-    debugger;
-  }
+var destroyInstance = function(){
+  $(testClass).mheAudio('tearDown');
+}
 
-  QUnit.test('play button state is updated on click', function(){
-    ok($('.audio1 .playPause').hasClass('isPaused'), 'is in "paused" state');
-    $('.audio1 .playPause').trigger('click');
-    ok($('.audio1 .playPause').hasClass('isPlaying'), 'is in "playing" state');
-  });
+QUnit.testStart(createInstance);
+QUnit.testDone(destroyInstance);
 
-  QUnit.test('mute button button state is updated on click', function(){
-    ok($('.audio1 .muteUnmute').hasClass('isUnmuted'), 'is in "unmuted" state');
-    $('.audio1 .muteUnmute').trigger('click');
-    ok($('.audio1 .muteUnmute').hasClass('isMuted'), 'is in "muted" state');
-  });
+// ------------------------------------------------------------
+QUnit.module('Integration: play/pause');
+QUnit.test('play button state is updated on click', function(){
+  ok($(testPlayPause).hasClass('isPaused'), 'is in "paused" state upon load');
+  $(testPlayPause).trigger('click');
+  ok($(testPlayPause).hasClass('isPlaying'), 'is in "playing" state once clicked');
+});
 
-  QUnit.test('the scrobbler updates during playback', function(){
-    var a = getScrobblerVal();
-    $('.audio1 .playPause').trigger('click');
-    t = setTimeout(getScrobblerVal, 3000);
-    ok(a !== t, a + " is not " + t);
-  });
+QUnit.test('the audio is playing', function(assert){
+  $(testPlayPause).trigger('click');
+  var done = assert.async();
+  var song = $(testClass).data('MHEAudio').song;
+  setTimeout(function(){
+    ok(song.currentTime !== 0, 'the song is playing');
+    done();
+  }, 1000);
+});
 
+// ------------------------------------------------------------
+QUnit.module('Integration: mute & volume');
+QUnit.test('mute button button state is updated on click', function(){
+  ok($(testMuteUnmute).hasClass('isUnmuted'), 'is in "unmuted" state');
+  
+  $(testMuteUnmute).trigger('click');
+  ok($(testMuteUnmute).hasClass('isMuted'), 'is in "muted" state');
+});
 
+QUnit.test('mute/unmute updates the volume', function(){
+  var volumeValue = null
+
+  $(testMuteUnmute).trigger('click');
+  volumeValue = parseInt($('.audio1 .volume').val());
+  ok(volumeValue === 0, 'the slider is set to 0');
+  
+  $(testMuteUnmute).trigger('click');
+  volumeValue = parseInt($('.audio1 .volume').val());
+  ok(volumeValue !== 0, 'the slider is not set to 0');
+});
+
+test('sliding volume sets button to mute', function(){
+  $(testVolumeSlider).val(0);
+  $(testVolumeSlider).trigger('change');
+  ok($(testMuteUnmute).hasClass('isMuted'), 'the mute button shows muted state');
+});
+
+test('sliding volume sets button to unmute ', function(){
+  $(testVolumeSlider).val(10);
+  $(testVolumeSlider).trigger('change');
+  ok($(testMuteUnmute).hasClass('isUnmuted'), 'the mute button shows unmuted state');
+});
+
+// ------------------------------------------------------------
+QUnit.module('Integration: scrobbler');
+test('the scrobbler updates during playback', function(assert){
+  var done = assert.async();
+  $(testPlayPause).trigger('click');
+  setTimeout(function(){
+    ok($(testScrobbler).val() !== 0, 'the scrobbler has progressed');
+    done();
+  }, 2000);
+});
 
 </script>
-
 
 
 </body>

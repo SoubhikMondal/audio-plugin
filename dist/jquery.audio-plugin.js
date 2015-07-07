@@ -2,7 +2,6 @@
 
   'use strict';
 
-  //function MHEAudio(el){
   var MHEAudio = function(el){
     this.$el          = $(el);
     this.playPause    = this.$el.find('.playPause');
@@ -11,7 +10,7 @@
     this.volume       = this.$el.find('.volume');
     this.audioURL     = this.$el.data('audiourl');
     this.song         = new Audio(this.audioURL);
-    this.song.type    = 'audio/mpeg';
+    this.song.type    = this.$el.data('audiotype') || 'audio/mp3';
     this.song.src     = this.audioURL;
     this.isMuted      = false;
     this.isPlaying    = false;
@@ -31,15 +30,20 @@
     this.playPause.on('click', $.proxy(this.togglePlayback, this));
     this.muteUnmute.on('click', $.proxy(this.toggleVolume, this));
     this.volume.on('change', $.proxy(this.updateVolume, this));
+    this.volume.on('click', $.proxy(this.clickSlider, this));
     this.scrobbler.on('change', $.proxy(this.updateSongPosition, this));
     this.scrobbler.on('mousedown', $.proxy(this.startDrag, this));
     this.scrobbler.on('mouseup', $.proxy(this.stopDrag, this));
+    this.scrobbler.on('click', $.proxy(this.clickSlider, this));
 
     this.scrobblerProxy = $.proxy(this.updateScrobbler, this);
     this.song.addEventListener('timeupdate', this.scrobblerProxy);
 
     this.durationProxy = $.proxy(this.setDuration, this);
     this.song.addEventListener('durationchange', this.durationProxy);
+
+    this.endProxy = $.proxy(this.resetPlayer, this);
+    this.song.addEventListener('ended', this.endProxy);
   };
 
   MHEAudio.prototype.tearDown = function(){
@@ -47,17 +51,29 @@
     this.muteUnmute.unbind();
     this.volume.unbind();
     this.scrobbler.unbind();
-    this.song.removeEventListener('timeupdate', this.scrobblerProxy, false);
-    this.song.removeEventListener('durationchange', this.durationProxy, false);
-    this.song.src = '';
-    this.song = null;
-    
+    if(this.song){
+      this.song.removeEventListener('timeupdate', this.scrobblerProxy, false);
+      this.song.removeEventListener('durationchange', this.durationProxy, false);
+      this.song.removeEventListener('ended', this.endProxy, false);
+      this.song.src = '';
+      this.song = null;
+    }
+    this.$el.removeData();
+  };
+
+  MHEAudio.prototype.resetPlayer = function(){
+    this.togglePlayback();
+    $(this.scrobbler).val(0);
   };
 
   MHEAudio.prototype.setDuration = function(){
     $(this.scrobbler).attr('max', this.song.duration);
   };
-  
+
+  MHEAudio.prototype.clickSlider = function(){
+    return false;
+  };
+
   MHEAudio.prototype.startDrag = function(){
     $(this.scrobbler).attr('max', this.song.duration);
     if(this.isPlaying === true){
@@ -90,6 +106,7 @@
       this.song.pause();
       this.isPlaying = false;
     }
+    return false;
   };
 
   MHEAudio.prototype.toggleVolume = function(){
@@ -104,16 +121,17 @@
       $(this.volume).val(0);
       $(this.muteUnmute).removeClass('isUnmuted').addClass('isMuted');
     }
+     return false;
   };
   
   MHEAudio.prototype.updateVolume = function(){
-    var i = $(this.volume).val();
+    var i = parseInt($(this.volume).val());
     this.song.volume = i * 0.1;
     if(i === 0){
-      $(this.muteUnmute).addClass('isMuted');
+      $(this.muteUnmute).removeClass('isUnmuted').addClass('isMuted');
     } else {
       this.previousVolume = i;
-      $(this.muteUnmute).addClass('isUnmuted');
+      $(this.muteUnmute).removeClass('isMuted').addClass('isUnmuted');
     }
   };
 
@@ -128,6 +146,7 @@
       } else {
         if(typeof opt === 'string') {
           instance[opt].apply(instance, args);
+          return instance;
         }
       }
     });

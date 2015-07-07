@@ -7,7 +7,6 @@ var sass = require('gulp-sass');
 var flatten = require('gulp-flatten');
 var nodemon = require('gulp-nodemon');
 
-
 gulp.task('clean', function(cb){
   del('dist', cb);
 });
@@ -22,15 +21,17 @@ gulp.task('buildJS', function(){
 gulp.task('buildLongJS', function(){
  return gulp.src('src/**.js')
     .pipe(concat('jquery.audio-plugin.js'))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('tmp'));
+     
 });
-
 
 gulp.task('buildCSS', function(){
   return gulp.src('src/**.scss')
     .pipe(sass({outputStyle:'compressed'})
     .on('error', sass.logError))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('tmp'));
 });
 
 gulp.task('serve', function () {
@@ -40,13 +41,11 @@ gulp.task('serve', function () {
   });
 });
 
-
 gulp.task('copyHTML', function(){
   return gulp.src('src/test.html')
     .pipe(flatten())
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('tmp'));
 });
-
 
 gulp.task('copyCSS', function(){
   return gulp.src('src/*.css')
@@ -79,8 +78,7 @@ gulp.task('watch', ['html-watcher', 'scss-watcher', 'js-watcher']);
 
 // ----------------------------------------
 
-
-gulp.task('dev', ['build', 'copyHTML'], function(){
+gulp.task('dev', ['clean', 'build', 'copyHTML'], function(){
   gulp.start('serve');
   gulp.start('watch');
 });

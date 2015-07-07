@@ -10,7 +10,7 @@ var port = process.env.PORT || 8001;
 console.log('Starting node...');
 console.log('PORT=' + port);
 
-app.use(express.static('./dist/'));
+app.use(express.static('./tmp/'));
 
 app.listen(port, function() {
     console.log('Express server listening on port ' + port);
