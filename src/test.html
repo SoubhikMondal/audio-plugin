@@ -26,6 +26,12 @@
   </div>
 
   <hr>
+
+  <div class="audio__container audio3" data-audiotype="audio/mp3" data-audiourl='http://destroyloop.com/sessions/intro1.mp3'>
+    <button class="playPause isPaused"></button>
+  </div>
+
+  <hr>
   <hr>
 
   <div id="qunit"></div>
@@ -38,6 +44,7 @@
 $(document).ready(function(){
   $('.audio1').mheAudio();
   $('.audio2').mheAudio();
+  $('.audio3').mheAudio();
 
   $('.kill1').on('click', function(){
     $('.audio1').mheAudio('tearDown');
