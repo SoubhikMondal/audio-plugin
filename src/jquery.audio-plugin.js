@@ -31,9 +31,11 @@
     this.playPause.on('click', $.proxy(this.togglePlayback, this));
     this.muteUnmute.on('click', $.proxy(this.toggleVolume, this));
     this.volume.on('change', $.proxy(this.updateVolume, this));
+    this.volume.on('click', $.proxy(this.clickSlider, this));
     this.scrobbler.on('change', $.proxy(this.updateSongPosition, this));
     this.scrobbler.on('mousedown', $.proxy(this.startDrag, this));
     this.scrobbler.on('mouseup', $.proxy(this.stopDrag, this));
+    this.scrobbler.on('click', $.proxy(this.clickSlider, this));
 
     this.scrobblerProxy = $.proxy(this.updateScrobbler, this);
     this.song.addEventListener('timeupdate', this.scrobblerProxy);
@@ -57,7 +59,11 @@
   MHEAudio.prototype.setDuration = function(){
     $(this.scrobbler).attr('max', this.song.duration);
   };
-  
+
+  MHEAudio.prototype.clickSlider = function(){
+    return false;
+  };
+
   MHEAudio.prototype.startDrag = function(){
     $(this.scrobbler).attr('max', this.song.duration);
     if(this.isPlaying === true){
@@ -90,6 +96,7 @@
       this.song.pause();
       this.isPlaying = false;
     }
+    return false;
   };
 
   MHEAudio.prototype.toggleVolume = function(){
@@ -104,6 +111,7 @@
       $(this.volume).val(0);
       $(this.muteUnmute).removeClass('isUnmuted').addClass('isMuted');
     }
+     return false;
   };
   
   MHEAudio.prototype.updateVolume = function(){
