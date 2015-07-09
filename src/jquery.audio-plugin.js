@@ -42,6 +42,9 @@
 
     this.durationProxy = $.proxy(this.setDuration, this);
     this.song.addEventListener('durationchange', this.durationProxy);
+
+    this.endProxy = $.proxy(this.resetPlayer, this);
+    this.song.addEventListener('ended', this.endProxy);
   };
 
   MHEAudio.prototype.tearDown = function(){
@@ -51,9 +54,14 @@
     this.scrobbler.unbind();
     this.song.removeEventListener('timeupdate', this.scrobblerProxy, false);
     this.song.removeEventListener('durationchange', this.durationProxy, false);
+    this.song.removeEventListener('ended', this.endProxy, false);
     this.song.src = '';
     this.song = null;
-    
+  };
+
+  MHEAudio.prototype.resetPlayer = function(){
+    this.togglePlayback();
+    $(this.scrobbler).val(0);
   };
 
   MHEAudio.prototype.setDuration = function(){
