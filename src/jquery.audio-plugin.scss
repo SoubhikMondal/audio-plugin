@@ -46,7 +46,6 @@
     
     &::after {
       padding-left: 25px;
-      content: 'MUTE';
     }
   }
 
@@ -72,5 +71,34 @@
     border:1px solid black;
     height: 4px;
     width: 50px;
+  }
+
+  
+  ::-ms-thumb {
+    background: white;
+    border-radius: 50%;
+    background-image: url('http://www.clipartbest.com/cliparts/LcK/dpo/LcKdpo9bi.png');
+  }
+
+  ::-ms-tooltip { 
+    display: none;
+  }
+
+  ::-ms-track { 
+    color:transparent; 
+    height:40px;
+  }
+
+  input[type="range"]::-ms-ticks,
+  input[type="range"]::-ms-ticks-before,
+  input[type="range"]::-ms-ticks-after {
+    display: none;
+  }
+
+  // ::-ms-track,
+  ::-ms-fill-upper,
+  ::-ms-fill-lower {
+    background-color: DeepSkyBlue;
+    border: none;
   }
 }
