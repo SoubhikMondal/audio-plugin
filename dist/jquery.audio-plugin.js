@@ -2,7 +2,6 @@
 
   'use strict';
 
-  //function MHEAudio(el){
   var MHEAudio = function(el){
     this.$el          = $(el);
     this.playPause    = this.$el.find('.playPause');
@@ -123,13 +122,13 @@
   };
   
   MHEAudio.prototype.updateVolume = function(){
-    var i = $(this.volume).val();
+    var i = parseInt($(this.volume).val());
     this.song.volume = i * 0.1;
     if(i === 0){
-      $(this.muteUnmute).addClass('isMuted');
+      $(this.muteUnmute).removeClass('isUnmuted').addClass('isMuted');
     } else {
       this.previousVolume = i;
-      $(this.muteUnmute).addClass('isUnmuted');
+      $(this.muteUnmute).removeClass('isMuted').addClass('isUnmuted');
     }
   };
 
@@ -144,6 +143,7 @@
       } else {
         if(typeof opt === 'string') {
           instance[opt].apply(instance, args);
+          return instance;
         }
       }
     });
