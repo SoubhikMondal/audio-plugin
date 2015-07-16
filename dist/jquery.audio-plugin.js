@@ -51,14 +51,11 @@
     this.muteUnmute.unbind();
     this.volume.unbind();
     this.scrobbler.unbind();
-    if(this.song){
-      this.song.removeEventListener('timeupdate', this.scrobblerProxy, false);
-      this.song.removeEventListener('durationchange', this.durationProxy, false);
-      this.song.removeEventListener('ended', this.endProxy, false);
-      this.song.src = '';
-      this.song = null;
-    }
-    this.$el.removeData();
+    this.song.removeEventListener('timeupdate', this.scrobblerProxy, false);
+    this.song.removeEventListener('durationchange', this.durationProxy, false);
+    this.song.removeEventListener('ended', this.endProxy, false);
+    this.song.src = '';
+    this.song = null;
   };
 
   MHEAudio.prototype.resetPlayer = function(){
