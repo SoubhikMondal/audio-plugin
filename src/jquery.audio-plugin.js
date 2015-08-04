@@ -12,6 +12,7 @@
     this.song         = new Audio(this.audioURL);
     this.song.type    = this.$el.data('audiotype') || 'audio/mp3';
     this.song.src     = this.audioURL;
+    this.song.preload = 'none';
     this.isMuted      = false;
     this.isPlaying    = false;
     this.previousVolume = 10;
