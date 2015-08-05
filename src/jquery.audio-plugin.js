@@ -18,6 +18,9 @@
     this.previousVolume = 10;
     this.scrobblerProxy = null;
     this.durationProxy  = null;
+    this.errorProxy     = null;
+    this.errorDuration  = 0;
+    this.errorTimeOut   = 5000;
 
     this.playPause.addClass('isPaused');
     this.muteUnmute.addClass('isUnmuted');
@@ -40,6 +43,9 @@
     this.scrobblerProxy = $.proxy(this.updateScrobbler, this);
     this.song.addEventListener('timeupdate', this.scrobblerProxy);
 
+    this.errorProxy = $.proxy(this.handleSrcError, this);
+    this.song.addEventListener('error', this.errorProxy);
+
     this.durationProxy = $.proxy(this.setDuration, this);
     this.song.addEventListener('durationchange', this.durationProxy);
 
@@ -55,8 +61,32 @@
     this.song.removeEventListener('timeupdate', this.scrobblerProxy, false);
     this.song.removeEventListener('durationchange', this.durationProxy, false);
     this.song.removeEventListener('ended', this.endProxy, false);
-    this.song.src = '';
+    this.song.removeEventListener('error', this.errorProxy, false);
+
     this.song = null;
+  };
+
+  MHEAudio.prototype.handleSrcError = function(e){
+    var errorCode = e.target.error.code;
+
+    if( errorCode === 4 || errorCode === 2) {
+      var src   = e.target.src;
+      var _this = this;
+      var song  = _this.song;
+
+      if(_this.errorDuration > _this.errorTimeOut) {
+        $(_this.playPause).removeClass('isPlaying').addClass('inError');
+        $(_this.$el).attr('title', 'An error occurred while playing your recording. Please try again later.');
+      } else {
+        setTimeout(function(){
+          _this.errorDuration = _this.errorDuration + 500;
+          song.src = src;
+          song.pause();
+          song.load();
+          song.play();
+        }, 500);
+      }
+    }
   };
 
   MHEAudio.prototype.resetPlayer = function(){
