@@ -28,6 +28,10 @@
     &.isPlaying::after {
       content: 'PAUSE ||';
     }
+
+    &.inError::after {
+      content: 'ERROR !';
+    }
   }
 
   .muteUnmute {
