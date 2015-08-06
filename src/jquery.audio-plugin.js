@@ -63,7 +63,8 @@
     this.song.removeEventListener('ended', this.endProxy, false);
     this.song.removeEventListener('error', this.errorProxy, false);
 
-    this.song = null;
+    this.song.src = '';
+    this.song     = null;
   };
 
   MHEAudio.prototype.handleSrcError = function(e){
