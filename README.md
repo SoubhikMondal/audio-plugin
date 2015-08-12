@@ -51,7 +51,9 @@ and then...
   $('.audio1').mheAudio();
 ```
 
+Contributing
+------------
 
 * to build just run `gulp build` (compiles into ./dist/)
 
-* to work (sever and watch tasks) run `gulp dev`: runs on port 8001
+* to work (sever and watch tasks) run `gulp dev`: runs on `localhost:8001/test.html`
