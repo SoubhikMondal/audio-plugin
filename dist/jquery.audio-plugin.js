@@ -10,7 +10,7 @@
     this.volume       = this.$el.find('.volume');
     this.audioURL     = this.$el.data('audiourl');
     this.song         = new Audio(this.audioURL);
-    this.song.type    = this.$el.data('audiotype') || 'audio/mp3';
+    this.song.type    = this.$el.data('audiotype');
     this.song.src     = this.audioURL;
     this.song.preload = 'none';
     this.isMuted      = false;
