@@ -65,6 +65,8 @@
 
     this.song.src = '';
     this.song     = null;
+
+    $(this.$el).removeData('MHEAudio');
   };
 
   MHEAudio.prototype.handleSrcError = function(e){
