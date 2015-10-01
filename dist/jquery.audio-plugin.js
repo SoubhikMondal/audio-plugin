@@ -71,10 +71,10 @@
 
   MHEAudio.prototype.handleSrcError = function(e){
     var errorCode = e.target.error.code;
+    var _this     = this;
 
-    if( errorCode === 4 || errorCode === 2) {
+    if((errorCode === 4 || errorCode === 2) && _this.isPlaying) {
       var src   = e.target.src;
-      var _this = this;
       var song  = _this.song;
 
       if(_this.errorDuration > _this.errorTimeOut) {
